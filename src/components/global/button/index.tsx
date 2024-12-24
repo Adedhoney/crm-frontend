@@ -36,7 +36,7 @@ const BaseButton = styled.button`
     align-items: center;
     justify-content: center;
     border: 0;
-    background-color: ${({ theme }) => theme.colors.red};
+    background-color: #00504b;
     color: ${({ theme }) => theme.colors.white};
     font-family: ${({ theme }) => theme.fontFamily.inter};
     font-style: normal;

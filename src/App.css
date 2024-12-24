@@ -1,26 +1,26 @@
 body {
-    font-family: "Montreal";
+    font-family: 'Montreal';
 }
 /* Montreal */
 @font-face {
-    font-family: "Montreal";
+    font-family: 'Montreal';
     font-weight: 500;
-    src: url("./assets/fonts/NeueMontreal-Bold.otf");
+    src: url('./assets/fonts/NeueMontreal-Bold.otf');
 }
 @font-face {
-    font-family: "Montreal";
+    font-family: 'Montreal';
     font-weight: 500;
-    src: url("./assets/fonts/NeueMontreal-Medium.otf");
+    src: url('./assets/fonts/NeueMontreal-Medium.otf');
 }
 @font-face {
-    font-family: "Montreal";
-    src: url("./assets/fonts/NeueMontreal-Regular.otf");
+    font-family: 'Montreal';
+    src: url('./assets/fonts/NeueMontreal-Regular.otf');
     font-weight: 400;
     font-style: normal;
 }
 @font-face {
-    font-family: "Montreal";
-    src: url("./assets/fonts/NeueMontreal-Light.otf");
+    font-family: 'Montreal';
+    src: url('./assets/fonts/NeueMontreal-Light.otf');
     font-weight: 300;
     font-style: normal;
 }
@@ -45,11 +45,21 @@ button[disabled] {
     position: relative;
 }
 
+.app_selects {
+    width: 100%;
+    text-align: left;
+}
+
 .app__toast .Toastify__toast-icon {
     width: unset;
     position: absolute;
     top: -5px;
     left: 0;
+}
+
+.container-otp {
+    gap: 10px;
+    height: 50px;
 }
 
 @media only screen and (max-width: 480px) {
@@ -82,4 +92,30 @@ button[disabled] {
 }
 .ant-popover .ant-popover-inner {
     padding: 0 !important;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.table_desc::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.table_desc {
+    -ms-overflow-style: none !important; /* IE and Edge */
+    scrollbar-width: none !important; /* Firefox */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.table_header::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.table_header {
+    -ms-overflow-style: none !important; /* IE and Edge */
+    scrollbar-width: none !important; /* Firefox */
+}
+
+.edit-image {
+    padding: 20px;
+    cursor: pointer;
+    box-shadow: 10px 14px 16px 2px #d4d4da;
 }

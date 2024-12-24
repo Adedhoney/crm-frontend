@@ -1,47 +1,49 @@
-import {
-    ContentBox,
-    Form,
-    LogoBox,
-    SubText,
-    Wrapper,
-} from "../style"
-import Logo from "../../assets/hotelspaddie-green.png"
-import { FormInput } from "../global/formInput"
+import { ContentBox, Form, LogoBox, SubText, Wrapper } from './style';
+import Logo from '../../assets/hotelspaddie-green.png';
+import { FormInput } from '../global/formInput';
 // import { Link } from "react-router-dom"
-import { LoginButton } from "../global/button"
-import { FormEvent, useState } from "react"
-import { loginUser } from "../../services/authService"
-import { alerts } from "../../utils/alert"
-import { useMutation } from "react-query"
+import { LoginButton } from '../global/button';
+import { FormEvent, useState } from 'react';
+import { loginUser } from '../../services';
+import { alerts } from '../../utils/alert';
+import { useMutation } from 'react-query';
+import { useAuth } from '../../providers/AuthProvider';
+import { useLocalStorage } from 'react-use';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [loading, setLoading] = useState(false)
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const { setAuth } = useAuth();
+    const [token, setToken] = useLocalStorage<any>('token');
+    const navigate = useNavigate();
 
     const login = useMutation(loginUser, {
         onSuccess: (data) => {
-            console.log(data)
+            setEmail('');
+            setPassword('');
+            setLoading(false);
+            setToken(data.token);
+            setAuth({ access_token: 'true' });
+            alerts.success('Login Success', 'Login successful');
+            window.location.replace('/dashboard');
         },
         onError: (error: any) => {
-            setLoading(false)
-            alerts.error(error.message, error)
-            console.log("gets here")
+            setLoading(false);
+            alerts.error('Login failed', error);
         },
-    })
+    });
 
     const onSubmit = (e: FormEvent) => {
-        e.preventDefault()
+        e.preventDefault();
         if (!password || !email) {
-            alerts.error(
-                "Error",
-                "Please fill all the fields correctly"
-            )
-            return
+            alerts.error('Error', 'Please fill all the fields correctly');
+            return;
         }
-        setLoading(true)
-        login.mutate({ email: email, password: password })
-    }
+        setLoading(true);
+        login.mutate({ email: email, password: password });
+    };
 
     return (
         <Wrapper>
@@ -51,9 +53,7 @@ const Login = () => {
             <ContentBox>
                 <div className="box">
                     <h1 className="text">Welcome back</h1>
-                    <p className="sub-text">
-                        Log in to your account
-                    </p>
+                    <p className="sub-text">Log in to your account</p>
                 </div>
                 <Form>
                     <FormInput
@@ -72,12 +72,9 @@ const Login = () => {
                     />
                 </Form>
                 <SubText>
-                    <span
-                        className="div"
-                        to="/auth/forgot-password"
-                    >
+                    <Link className="div" to="/auth/forgot-password">
                         Forgot password?
-                    </span>
+                    </Link>
                 </SubText>
                 <div className="buttons">
                     <LoginButton
@@ -92,16 +89,16 @@ const Login = () => {
                     </SubText>
 
                     <SubText>
-                        Don’t have an account?{" "}
+                        Don’t have an account?{' '}
                         <span className="span">
-                            {" "}
+                            {' '}
                             Check your email for an invite
                         </span>
                     </SubText>
                 </div>
             </ContentBox>
         </Wrapper>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;
